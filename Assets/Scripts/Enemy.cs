@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
         transform.position += transform.forward * 1 * Time.deltaTime;
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
         this.gameObject.SetActive(false);
     }

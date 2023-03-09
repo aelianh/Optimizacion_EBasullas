@@ -3,25 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
-{   [SerializeField] float speed = 5f;
-    [SerializeField] float dirX;
+{ 
 
-    Rigidbody _rigidB;
+
+    float speed = 2;
+
+    private CharacterController controller;
+    public float horizontalMove;
+    public float verticalMove;
 
     public GameObject bulletPrefab;
     public Transform bulletOrigin;
     public int ammo = 0;
 
-    // Start is called before the first frame update
-    void Awake()
+
+
+    void Start()
     {
-        _rigidB = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        dirX = Input.GetAxisRaw("Horizontal");
+        verticalMove = Input.GetAxis("Vertical");
+        horizontalMove= Input.GetAxis("Horizontal");
+        
         if(Input.GetButtonDown("Fire1"))
         {
             GameObject bullet = PoolManager.Instance.GetPooledObjects(ammo, bulletOrigin.position, bulletOrigin.rotation);
@@ -31,6 +38,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        _rigidB.velocity = new Vector3(dirX * speed, _rigidB.velocity.y, _rigidB.velocity.z);
+        controller.Move(new Vector3(horizontalMove, 0, verticalMove) * speed);
     }
+
 }

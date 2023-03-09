@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
         transform.position += transform.forward * 10 * Time.deltaTime;
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
         this.gameObject.SetActive(false);
     }
